@@ -10,6 +10,6 @@ class Message extends Model
   protected $fillable = ['message'];
 
   public function user() {
-    return belongTo(User::class);
+    return $this->belongsTo(User::class);
   }
 }
