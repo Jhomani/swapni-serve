@@ -13,6 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Notifications\EmailNotification;
+use App\User;
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('/email', function () {
+  User::find(4)->notify(new EmailNotification);
+  
+  // $users = User::find(4);
+
+  // Notification::send($users, new EmailNotification());
+});
+
+Route::get('/send-email', function () {
+  User::find(4)->notify(new EmailNotification);
+
+  $details = [
+    'title' => 'Mail from this page'
+  ];
+
+  \Mail::to('junkedev@gmail.com')->send(new \App\Mail\TestMail($details));
+
+  echo 'all will be good!';
+});
